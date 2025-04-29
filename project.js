@@ -46,7 +46,7 @@ function getResult(choice1, choice2) {
 
 // function that gets the choice from human:
 function getHumanChoice() {
-    const userInput = prompt(message="Choose among rock/paper/scissors: ");
+    const userInput = prompt("Choose among rock/paper/scissors: ");
     return userInput.toLowerCase();  // standartised result
 }
 
@@ -69,7 +69,7 @@ function playRound(humanChoice) {
     }
 }
 
-// main function to play the game. it'll be 5 rounds by default but can be changed:
+// main function to play the game. It'll be 5 rounds by default but can be changed:
 function playGame(roundCount=5) {
     for (let i = 0; i < roundCount; i++) {
         const fetchedHumanInput = getHumanChoice();
@@ -77,9 +77,9 @@ function playGame(roundCount=5) {
     }
     console.log(`Round ended. Score: ${humanScore} - ${computerScore}`);
     if (humanScore > computerScore) {
-        console.log("You won!");
+        console.log("You won the game!");
     } else if (humanScore < computerScore) {
-        console.log("You lose.")
+        console.log("You lost the game.")
     } else {
         console.log("It's a tie.")
     }
