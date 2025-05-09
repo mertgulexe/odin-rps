@@ -88,14 +88,15 @@ function playGame(roundCount=5) {
 
 /*
 To-do:
-* connect the events to buttons
-* wanna increase the round limit? (slider 1-20)
+[] Put a header.
+[] Connect the events to the buttons.
+[] Player chooses the max num of rounds (slider 1-20)
     * dont forget to change the <span> tag for the number
-* restart the game
-* when game ends
-    * enable the reset button
-    * disable the game buttons
-* fix the header
-* push to robotomono subdomain
-* add robotomono main page a link
+[] Add "Restart the game" feature.
+* When game ends:
+    [] enable the reset button
+    [] disable the game buttons
+[] Fix the header, align it.
+[] push to robotomono subdomain
+[] add robotomono main page a link
 */
