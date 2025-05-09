@@ -19,13 +19,25 @@
     <body>
       <main>
         <div class="main-box">
-            <h1>💩 Rock 🧻 Paper 🍴 Scissors</h1>
-            <h2>You know the rules. Just click one of the options to start the game.<br>👇🏼</h2>
-            <div class="game-screen">
-              x
-            </div>
+            <h1> 💩Rock<br>🧻Paper<br>🍴Scissors</h1>
+            <h2>You know the rules. The one hits <span class="max-score">5</span> wins.<br>Select one of the buttons to start the game.<br>👇🏼</h2>
             <div class="scoreboard">
-              y
+              <div class="scores">
+                <div class="score-row">
+                  <div class="player-name">You : </div>
+                  <div class="player-score">0</div>
+                </div>
+                <div class="score-row">
+                  <div class="device-name">🤖 : </div>
+                  <div class="device-score">0</div>
+                </div>
+              </div>
+                <button disabled class="reset-button">Reset the game</button>
+            </div>
+            <div class="button-screen">
+              <button >💩</button>
+              <button >🧻</button>
+              <button >🍴</button>
             </div>
           </div>
       </main>
