@@ -10,7 +10,7 @@ html {
 }
 
 :root {
-  --yellowish: rgb(235, 182, 104);
+  --yellowish: rgb(235, 183, 104);
   --blueish: #131927;
   --light-blueish: #162230;
 }
@@ -53,14 +53,9 @@ main {
   border-radius: 50%;
 }
 
-.main-box p:nth-of-type(2) {
-  font-size: 0.65rem;
-}
-
-code {
-  font-family: 'Courier New', Courier, monospace;
-  color: crimson;
-  background-color: var(--blueish);
-  padding: 2px;
-  font-size: 105%;
+.game-screen,
+.scoreboard {
+  background-color: var(--yellowish);
+  min-width: 300px;
+  min-height: 50px;
 }
