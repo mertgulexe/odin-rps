@@ -53,12 +53,20 @@ h1 {
 
 h2 {
   font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.dynamic-text {
+  margin-bottom: 0;
+  height: 40px;
+  width: 300px;
 }
 
 button {
   background-color: rgb(235, 183, 104);
   box-shadow: 0px 0px 5px 3px var(--light-blueish);
   color: var(--blueish);
+  transition: background-color 0.45s ease;
 }
 
 button:disabled{
@@ -69,7 +77,8 @@ button:disabled{
 }
 
 button:hover:enabled{
-  background: linear-gradient(0.50turn, var(--yellowish), #ff9900);
+  background-color: #ff9900;
+  /* background: linear-gradient(0.50turn, var(--yellowish), #ff9900); */
 }
 
 .button-screen,
