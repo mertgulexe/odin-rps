@@ -84,3 +84,18 @@ function playGame(roundCount=5) {
         console.log("It's a tie.")
     }
 }
+
+
+/*
+To-do:
+* connect the events to buttons
+* wanna increase the round limit? (slider 1-20)
+    * dont forget to change the <span> tag for the number
+* restart the game
+* when game ends
+    * enable the reset button
+    * disable the game buttons
+* fix the header
+* push to robotomono subdomain
+* add robotomono main page a link
+*/
