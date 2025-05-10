@@ -75,12 +75,8 @@ function playGame(event) {
     dynamicText.textContent = roundResult;
     humanScoreElement.textContent = humanScore;
     deviceScoreElement.textContent = deviceScore;
-    // end game if max score is reached
-    // activate reset button
-    if (humanScore > deviceScore) {
-        console.log("You won!");
-    } else if (humanScore < deviceScore) {
-        console.log("You lose.")
+    if (humanScore === 5) || (deviceScore === 5) {
+        endTheGame();
     }
 }
 
@@ -92,11 +88,16 @@ function resetTheGame() {
     return;
 }
 
-function endGame() {
+function endTheGame() {
     resetButton.disabled = false;
     gameButtons.forEach(btn => {
         btn.disabled = true;
     });
+    if (humanScore > deviceScore) {
+        dynamicText.textContent = "You have won the game!";
+    } else if (humanScore < deviceScore) {
+        dynamicText.textContent = "You have lost the game.";
+    }
 }
 
 /*
