@@ -59,7 +59,8 @@ h2 {
 .dynamic-text {
   margin-bottom: 0;
   height: 40px;
-  width: 300px;
+  width: 330px;
+  font-style: italic;
 }
 
 button {
