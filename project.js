@@ -2,25 +2,10 @@
 
 let humanScore = 0;
 let computerScore = 0;
-// created an object not to write the names over and over again:
 let choiceMap = {
     0: "rock",
     1: "scissors",
     2: "paper"
-};
-
-// reversed keys & values for ease of use in upcoming functions:
-let reversedChoiceMap = Object.fromEntries(
-    Object.entries(choiceMap).map(
-        ([k, v]) => [v, parseInt(k)]
-    )
-);
-
-// created an object for the results:
-let resultMap = {
-    [choiceMap[0]]: ["tie", "win", "lose"],  // rock
-    [choiceMap[1]]: ["lose", "tie", "win"],  // scissors
-    [choiceMap[2]]: ["win", "lose", "tie"],  // paper
 };
 
 // function that gets random computer choice:
@@ -37,17 +22,26 @@ function getComputerChoice() {
 }
 
 // function that gets the result: tie/win/lose.
-function getResult(choice1, choice2) {
-    const resultArray = resultMap[choice1];  // array for the related result
-    const resultIndex = reversedChoiceMap[choice2];  // index for the result
-    const final_result = resultArray[resultIndex];  // final result fetched from the array
-    return final_result;
+function getResult(humanChoice, computerChoice) {
+    const resultMap = {
+        "rock": ["tie", "win", "lose"],
+        "scissors": ["lose", "tie", "win"],
+        "paper": ["win", "lose", "tie"],
+    };
+    const reversedChoiceMap = Object.fromEntries(
+        Object.entries(choiceMap).map(
+            ([k, v]) => [v, parseInt(k)]
+        )
+    );
+    const resultArray = resultMap[humanChoice];
+    const computerChoiceIndex = reversedChoiceMap[computerChoice];
+    return resultArray[computerChoiceIndex];
 }
 
 // function that gets the choice from human:
 function getHumanChoice() {
     const userInput = prompt(message="Choose among rock/paper/scissors: ");
-    return userInput.toLowerCase();  // standartised result
+    return userInput.toLowerCase();
 }
 
 // this function will be invoked each round to process the result:
@@ -69,7 +63,7 @@ function playRound(humanChoice) {
     }
 }
 
-// main function to play the game. it'll be 5 rounds by default but can be changed:
+// main function to play the game.
 function playGame(roundCount=5) {
     for (let i = 0; i < roundCount; i++) {
         const fetchedHumanInput = getHumanChoice();
