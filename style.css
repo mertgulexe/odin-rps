@@ -133,3 +133,9 @@ button:hover:enabled{
   padding: 0.3em 1em;
   border-radius: 10px;
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+  flex-flow: row nowrap;
+}
