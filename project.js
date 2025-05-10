@@ -16,6 +16,7 @@ const dynamicText = document.querySelector(".dynamic-text");
 gameButtons.forEach(btn => {
     btn.addEventListener("click", playGame)
 });
+resetButton.addEventListener("click", resetTheGame);
 
 // function that gets random computer choice:
 function getDeviceChoice() {
@@ -81,11 +82,14 @@ function playGame(event) {
 }
 
 function resetTheGame() {
-    // disable reset button
-    // enable game buttons
-    // reset scores
+    resetButton.disabled = true;
+    gameButtons.forEach(btn => {
+        btn.disabled = false;
+    });
+    humanScore = 0;
+    deviceScore = 0;
     // reset dynamic text
-    return;
+    // dynamicText.textContent
 }
 
 function endTheGame() {
