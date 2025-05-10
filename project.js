@@ -1,6 +1,6 @@
 // variables
 let humanScore = 0;
-let computerScore = 0;
+let deviceScore = 0;
 let choiceMap = {
     0: "rock",
     1: "scissors",
@@ -9,13 +9,15 @@ let choiceMap = {
 
 // event listeners
 const gameButtons = document.querySelectorAll("div.button-screen button");
-let dynamicText = document.querySelector(".dynamic-text");
+const humanScoreElement = document.querySelector(".score-row .player-score");
+const deviceScoreElement = document.querySelector(".score-row .device-score");
+const dynamicText = document.querySelector(".dynamic-text");
 gameButtons.forEach(btn => {
     btn.addEventListener("click", playGame)
 });
 
 // function that gets random computer choice:
-function getComputerChoice() {
+function getDeviceChoice() {
     const randomInteger = Math.floor((Math.random() * 3));
     switch (randomInteger) {
         case 0:
@@ -28,7 +30,7 @@ function getComputerChoice() {
 }
 
 // function that gets the result: tie/win/lose.
-function getResult(humanChoice, computerChoice) {
+function getResult(humanChoice, deviceChoice) {
     const resultMap = {
         "rock": ["tie", "win", "lose"],
         "scissors": ["lose", "tie", "win"],
@@ -40,47 +42,44 @@ function getResult(humanChoice, computerChoice) {
         )
     );
     const roundResultArray = resultMap[humanChoice];
-    const computerChoiceIndex = reversedChoiceMap[computerChoice];
-    return roundResultArray[parseInt(computerChoiceIndex)];
+    const deviceChoiceIndex = reversedChoiceMap[deviceChoice];
+    return roundResultArray[parseInt(deviceChoiceIndex)];
 }
 
 // function that gets the choice from human:
 function getHumanChoice(event) {
-    console.log(event.target.tagName);
     return event.target.id.toLowerCase();
 }
 
 // this function will be invoked each round to process the result:
 function playRound(event) {
     const humanChoice = getHumanChoice(event);
-    const computerChoice = getComputerChoice();
-    const roundResult = getResult(humanChoice, computerChoice);
+    const deviceChoice = getDeviceChoice();
+    const roundResult = getResult(humanChoice, deviceChoice);
     switch (roundResult) {
         case "tie":
             return "Tie.";
         case "win":
             humanScore++;
-            return `You win! "${humanChoice}" beats "${computerChoice}".`;
+            return `You win! "${humanChoice}" beats "${deviceChoice}".`;
         case "lose":
-            computerScore++;
-            return `You lose! "${computerChoice}" beats "${humanChoice}".`;
+            deviceScore++;
+            return `You lose! "${deviceChoice}" beats "${humanChoice}".`;
     }
 }
 
 // main function to play the game.
 function playGame(event) {
     const roundResult = playRound(event);
-    dynamicText.textContent = roundResult; ////////////////////////////////////////////
-
-    // update scores on UI
+    dynamicText.textContent = roundResult;
+    humanScoreElement.textContent = humanScore;
+    deviceScoreElement.textContent = deviceScore;
     // end game if max score is reached
     // activate reset button
-    if (humanScore > computerScore) {
+    if (humanScore > deviceScore) {
         console.log("You won!");
-    } else if (humanScore < computerScore) {
+    } else if (humanScore < deviceScore) {
         console.log("You lose.")
-    } else {
-        console.log("It's a tie.")
     }
 }
 
@@ -103,7 +102,7 @@ To-do:
 * When game ends:
     [] enable the reset button
     [] disable the game buttons
-[] Fix the header, align it.
+[] Fix the footer, align it.
 [] push to robotomono subdomain
 [] add robotomono main page a link
 */
