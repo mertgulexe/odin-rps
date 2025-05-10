@@ -7,8 +7,9 @@ let choiceMap = {
     2: "paper"
 };
 
-// event listeners
+// event listeners and elements
 const gameButtons = document.querySelectorAll("div.button-screen button");
+const resetButton = document.querySelectorAll("button.reset-button");
 const humanScoreElement = document.querySelector(".score-row .player-score");
 const deviceScoreElement = document.querySelector(".score-row .device-score");
 const dynamicText = document.querySelector(".dynamic-text");
@@ -91,6 +92,12 @@ function resetTheGame() {
     return;
 }
 
+function endGame() {
+    resetButton.disabled = false;
+    gameButtons.forEach(btn => {
+        btn.disabled = true;
+    });
+}
 
 /*
 To-do:
