@@ -69,11 +69,12 @@ function playRound(event) {
 
 // main function to play the game.
 function playGame(event) {
-    for (let i = 0; i < 5; i++) {
-        const roundResult = playRound(event);
-        dynamicText.textContent = roundResult; /////////////////////////////////////////////
-    }
-    console.log(`Round ended. Score: ${humanScore} - ${computerScore}`);
+    const roundResult = playRound(event);
+    dynamicText.textContent = roundResult; ////////////////////////////////////////////
+
+    // update scores on UI
+    // end game if max score is reached
+    // activate reset button
     if (humanScore > computerScore) {
         console.log("You won!");
     } else if (humanScore < computerScore) {
