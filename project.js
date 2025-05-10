@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+// variables
 let humanScore = 0;
 let computerScore = 0;
 let choiceMap = {
@@ -7,6 +6,13 @@ let choiceMap = {
     1: "scissors",
     2: "paper"
 };
+
+// event listeners
+const gameButtons = document.querySelectorAll("div.button-screen button");
+let dynamicText = document.querySelector(".dynamic-text");
+gameButtons.forEach(btn => {
+    btn.addEventListener("click", playGame)
+});
 
 // function that gets random computer choice:
 function getComputerChoice() {
@@ -33,41 +39,39 @@ function getResult(humanChoice, computerChoice) {
             ([k, v]) => [v, parseInt(k)]
         )
     );
-    const resultArray = resultMap[humanChoice];
+    const roundResultArray = resultMap[humanChoice];
     const computerChoiceIndex = reversedChoiceMap[computerChoice];
-    return resultArray[computerChoiceIndex];
+    return roundResultArray[parseInt(computerChoiceIndex)];
 }
 
 // function that gets the choice from human:
-function getHumanChoice() {
-    const userInput = prompt(message="Choose among rock/paper/scissors: ");
-    return userInput.toLowerCase();
+function getHumanChoice(event) {
+    console.log(event.target.tagName);
+    return event.target.id.toLowerCase();
 }
 
 // this function will be invoked each round to process the result:
-function playRound(humanChoice) {
+function playRound(event) {
+    const humanChoice = getHumanChoice(event);
     const computerChoice = getComputerChoice();
     const roundResult = getResult(humanChoice, computerChoice);
     switch (roundResult) {
         case "tie":
-            console.log("Tie.")
-            break;
+            return "Tie.";
         case "win":
             humanScore++;
-            console.log(`You win! "${humanChoice}" beats "${computerChoice}".`);
-            break;
+            return `You win! "${humanChoice}" beats "${computerChoice}".`;
         case "lose":
             computerScore++;
-            console.log(`You lose! "${computerChoice}" beats "${humanChoice}".`);
-            break;
+            return `You lose! "${computerChoice}" beats "${humanChoice}".`;
     }
 }
 
 // main function to play the game.
-function playGame(roundCount=5) {
-    for (let i = 0; i < roundCount; i++) {
-        const fetchedHumanInput = getHumanChoice();
-        playRound(fetchedHumanInput);
+function playGame(event) {
+    for (let i = 0; i < 5; i++) {
+        const roundResult = playRound(event);
+        dynamicText.textContent = roundResult; /////////////////////////////////////////////
     }
     console.log(`Round ended. Score: ${humanScore} - ${computerScore}`);
     if (humanScore > computerScore) {
@@ -77,6 +81,14 @@ function playGame(roundCount=5) {
     } else {
         console.log("It's a tie.")
     }
+}
+
+function resetTheGame() {
+    // disable reset button
+    // enable game buttons
+    // reset scores
+    // reset dynamic text
+    return;
 }
 
 
