@@ -9,7 +9,7 @@ let choiceMap = {
 
 // event listeners and elements
 const gameButtons = document.querySelectorAll("div.button-screen button");
-const resetButton = document.querySelectorAll("button.reset-button");
+const resetButton = document.querySelector("button.reset-button");
 const humanScoreElement = document.querySelector(".score-row .player-score");
 const deviceScoreElement = document.querySelector(".score-row .device-score");
 const dynamicText = document.querySelector(".dynamic-text");
@@ -17,6 +17,9 @@ gameButtons.forEach(btn => {
     btn.addEventListener("click", playGame)
 });
 resetButton.addEventListener("click", resetTheGame);
+
+const DYNAMIC_TEXT_DEFAULT = "To start the game,<br>hit the buttons below!";
+dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
 
 // function that gets random computer choice:
 function getDeviceChoice() {
@@ -73,10 +76,11 @@ function playRound(event) {
 // main function to play the game.
 function playGame(event) {
     const roundResult = playRound(event);
-    dynamicText.textContent = roundResult;
+    dynamicText.innerHTML = roundResult;
+    dynamicText.style.color = "#ff9900";
     humanScoreElement.textContent = humanScore;
     deviceScoreElement.textContent = deviceScore;
-    if (humanScore === 5) || (deviceScore === 5) {
+    if (humanScore === 5 || deviceScore === 5) {
         endTheGame();
     }
 }
@@ -88,8 +92,10 @@ function resetTheGame() {
     });
     humanScore = 0;
     deviceScore = 0;
-    // reset dynamic text
-    // dynamicText.textContent
+    humanScoreElement.textContent = humanScore;
+    deviceScoreElement.textContent = deviceScore;
+    dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
+    dynamicText.setAttribute("style", '');
 }
 
 function endTheGame() {
@@ -98,22 +104,28 @@ function endTheGame() {
         btn.disabled = true;
     });
     if (humanScore > deviceScore) {
-        dynamicText.textContent = "You have won the game!";
+        dynamicText.innerHTML = "You have won the game!";
+        dynamicText.setAttribute("style",
+            "color: #90ee90; font-weight: 900;"
+        );
     } else if (humanScore < deviceScore) {
-        dynamicText.textContent = "You have lost the game.";
+        dynamicText.innerHTML = "You have lost the game.";
+        dynamicText.setAttribute("style",
+            "color: #dc143c; font-weight: 900;"
+        );
     }
 }
 
 /*
 To-do:
 [] Put a header.
-[] Connect the events to the buttons.
+[x] Connect the events to the buttons.
 [] Player chooses the max num of rounds (slider 1-20)
     * dont forget to change the <span> tag for the number
-[] Add "Restart the game" feature.
+[x] Add "Restart the game" feature.
 * When game ends:
-    [] enable the reset button
-    [] disable the game buttons
+    [x] enable the reset button
+    [x] disable the game buttons
 [] Fix the footer, align it.
 [] push to robotomono subdomain
 [] add robotomono main page a link
