@@ -6,6 +6,17 @@ let choiceMap = {
     1: "scissors",
     2: "paper"
 };
+let reversedChoiceMap = Object.fromEntries(
+    Object.entries(choiceMap).map(
+        ([k, v]) => [v, parseInt(k)]
+    )
+);
+
+let resultMap = {
+    "rock": ["tie", "win", "lose"],
+    "scissors": ["lose", "tie", "win"],
+    "paper": ["win", "lose", "tie"],
+};
 
 // select elements
 const gameButtons = document.querySelectorAll("div.button-screen button");
@@ -14,8 +25,9 @@ const humanScoreElement = document.querySelector(".score-row .player-score");
 const deviceScoreElement = document.querySelector(".score-row .device-score");
 const dynamicText = document.querySelector(".dynamic-text");
 const maxScoreSelect = document.querySelector("#max-score-select");
-let maxScore = parseInt(
-    document.querySelector("h2 select").selectedOptions[0].value
+let maxScoreValue = parseInt(
+    maxScoreSelect.value
+    //document.querySelector("h2 select").selectedOptions[0].value  // redundant because it appears already selected.
 );
 // event listeners
 gameButtons.forEach(btn => {
@@ -46,16 +58,6 @@ function getDeviceChoice() {
 
 // function that gets the result: tie/win/lose.
 function getResult(humanChoice, deviceChoice) {
-    const resultMap = {
-        "rock": ["tie", "win", "lose"],
-        "scissors": ["lose", "tie", "win"],
-        "paper": ["win", "lose", "tie"],
-    };
-    const reversedChoiceMap = Object.fromEntries(
-        Object.entries(choiceMap).map(
-            ([k, v]) => [v, parseInt(k)]
-        )
-    );
     const roundResultArray = resultMap[humanChoice];
     const deviceChoiceIndex = reversedChoiceMap[deviceChoice];
     return roundResultArray[parseInt(deviceChoiceIndex)];
@@ -90,7 +92,7 @@ function playGame(event) {
     dynamicText.style.color = "#ff9900";
     humanScoreElement.textContent = humanScore;
     deviceScoreElement.textContent = deviceScore;
-    if (humanScore === maxScore || deviceScore === maxScore) {
+    if (humanScore === maxScoreValue || deviceScore === maxScoreValue) {
         endTheGame();
     }
 }
@@ -127,7 +129,7 @@ function endTheGame() {
 }
 
 function setMaxScore(event) {
-    maxScore = parseInt(event.target.value);
+    maxScoreValue = parseInt(event.target.value);
     resetTheGame();
 }
 
