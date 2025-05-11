@@ -21,6 +21,10 @@ resetButton.addEventListener("click", resetTheGame);
 const DYNAMIC_TEXT_DEFAULT = "To start the game,<br>hit the buttons below!";
 dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
 
+String.prototype.toTitleCase = function() {
+    return this.charAt(0).toUpperCase() + this.substring(1, );
+}
+
 // function that gets random computer choice:
 function getDeviceChoice() {
     const randomInteger = Math.floor((Math.random() * 3));
@@ -66,10 +70,10 @@ function playRound(event) {
             return "Tie.";
         case "win":
             humanScore++;
-            return `You win! "${humanChoice}" beats "${deviceChoice}".`;
+            return `You win! "${humanChoice.toTitleCase()}" beats "${deviceChoice}".`;
         case "lose":
             deviceScore++;
-            return `You lose! "${deviceChoice}" beats "${humanChoice}".`;
+            return `You lose! "${deviceChoice.toTitleCase()}" beats "${humanChoice}".`;
     }
 }
 
@@ -126,7 +130,7 @@ To-do:
 * When game ends:
     [x] enable the reset button
     [x] disable the game buttons
-[] Fix the footer, align it.
+[x] Fix the footer, align it.
 [] push to robotomono subdomain
 [] add robotomono main page a link
 */
