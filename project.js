@@ -1,6 +1,7 @@
 // variables
 let humanScore = 0;
 let deviceScore = 0;
+let tieCounter = 0;
 let choiceMap = {
     0: "rock",
     1: "scissors",
@@ -40,7 +41,7 @@ const DYNAMIC_TEXT_DEFAULT = "To start the game,<br>hit the buttons below!";
 dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
 
 String.prototype.toTitleCase = function() {
-    return this.charAt(0).toUpperCase() + this.substring(1, );
+    return this.charAt(0).toUpperCase() + this.substring(1);
 }
 
 // function that gets random computer choice:
@@ -69,12 +70,15 @@ function playRound(event) {
     const roundResult = getResult(humanChoice, deviceChoice);
     switch (roundResult) {
         case "tie":
-            return "Tie.";
+            tieCounter++;
+            return tieCounter > 1 ? `Tie x ${tieCounter}.` : "Tie.";
         case "win":
             humanScore++;
+            tieCounter = 0;
             return `You win! "${humanChoice.toTitleCase()}" beats "${deviceChoice}".`;
         case "lose":
             deviceScore++;
+            tieCounter = 0;
             return `You lose! "${deviceChoice.toTitleCase()}" beats "${humanChoice}".`;
     }
 }
@@ -101,7 +105,7 @@ function resetTheGame() {
     humanScoreElement.textContent = humanScore;
     deviceScoreElement.textContent = deviceScore;
     dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
-    dynamicText.setAttribute("style", '');
+    dynamicText.removeAttribute("style");
 }
 
 function endTheGame() {
