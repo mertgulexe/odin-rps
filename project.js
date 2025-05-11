@@ -64,7 +64,6 @@ function getResult(humanChoice, deviceChoice) {
 // function that gets the choice from human:
 function getHumanChoice(event) {
     return event.target.id.toLowerCase();
-}
 
 // this function will be invoked each round to process the result:
 function playRound(event) {
