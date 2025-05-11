@@ -134,13 +134,11 @@ function setMaxScore(event) {
 To-do:
 [] Put a header.
 [x] Connect the events to the buttons.
-[] Player chooses the max num of rounds (slider 1-20)
+[x] Player chooses the max num of rounds (slider 1-20)
     * dont forget to change the <span> tag for the number
 [x] Add "Restart the game" feature.
 * When game ends:
     [x] enable the reset button
     [x] disable the game buttons
 [x] Fix the footer, align it.
-[] push to robotomono subdomain
-[] add robotomono main page a link
 */
