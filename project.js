@@ -45,15 +45,9 @@ String.prototype.toTitleCase = function() {
 
 // function that gets random computer choice:
 function getDeviceChoice() {
-    const randomInteger = Math.floor((Math.random() * 3));
-    switch (randomInteger) {
-        case 0:
-            return choiceMap[0];
-        case 1:
-            return choiceMap[1];
-        case 2:
-            return choiceMap[2];
-    }
+    const choiceMapLength = Object.entries(choiceMap).length;
+    const randomChoiceIndex = Math.floor(Math.random() * choiceMapLength);
+    return choiceMap[randomChoiceIndex];
 }
 
 // function that gets the result: tie/win/lose.
