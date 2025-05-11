@@ -10,7 +10,7 @@ html {
 }
 
 :root {
-  --yellowish: rgb(235, 182, 104);
+  --yellowish: #ebb768;
   --blueish: #131927;
   --light-blueish: #162230;
 }
@@ -47,20 +47,108 @@ main {
   box-shadow: 3px 3px 10px 1px rgb(235, 182, 104, 0.2);
 }
 
-.main-box img {
-  background-color: var(--yellowish);
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+#max-score-select {
+  background-color: var(--light-blueish);
   color: var(--yellowish);
+  border: 1px solid var(--yellowish);
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 1px 2px;
+  border-radius: 15px;
+}
+
+.dynamic-text {
+  margin-bottom: 0;
+  height: 40px;
+  width: 330px;
+  font-style: italic;
+}
+
+button {
+  background-color: rgb(235, 183, 104);
+  box-shadow: 0px 0px 5px 3px var(--light-blueish);
+  color: var(--blueish);
+  transition: background-color 0.45s ease;
+}
+
+button:disabled{
+  background-color: #4c5058;
+  color: var(--yellowish);
+  box-shadow: 0px 0px 5px 3px var(--light-blueish);
+  opacity: 0.50;
+}
+
+button:hover:enabled{
+  background-color: #ff9900;
+  /* background: linear-gradient(0.50turn, var(--yellowish), #ff9900); */
+}
+
+.button-screen,
+.scoreboard {
+  max-height: 75px;
+  display: flex;
+  background-color: #2f384d9d;
+  align-items: center;
+  padding: 12px;
+  gap: 1em;
+  border-radius: 10px;
+}
+
+.button-screen button {
+  border: 5px var(--light-blueish) solid;
+  justify-content: space-around;
   border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: large;
 }
 
-.main-box p:nth-of-type(2) {
-  font-size: 0.65rem;
+.scoreboard {
+  flex: 0 0 250px;
+  min-width: 150px;
+  justify-content: space-between;
+  padding: 1em;;
 }
 
-code {
-  font-family: 'Courier New', Courier, monospace;
-  color: crimson;
-  background-color: var(--blueish);
-  padding: 2px;
-  font-size: 105%;
+.score-row {
+  display: flex;
+  flex: 1;
+  gap: 0.25em;
+  justify-self: space-between;
+  flex-flow: row nowrap;
+}
+
+.player-name,
+.device-name {
+  text-align: end;
+  min-width: 50px;
+}
+
+.player-score,
+.device-score {
+  text-align: start;
+  min-width: 50px;
+}
+
+.reset-button {
+  padding: 0.3em 1em;
+  border-radius: 10px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
 }

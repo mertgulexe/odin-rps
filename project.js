@@ -1,30 +1,38 @@
-#!/usr/bin/env node
-
+// variables
 let humanScore = 0;
-let computerScore = 0;
-// created an object not to write the names over and over again:
+let deviceScore = 0;
 let choiceMap = {
     0: "rock",
     1: "scissors",
     2: "paper"
 };
 
-// reversed keys & values for ease of use in upcoming functions:
-let reversedChoiceMap = Object.fromEntries(
-    Object.entries(choiceMap).map(
-        ([k, v]) => [v, parseInt(k)]
-    )
+// select elements
+const gameButtons = document.querySelectorAll("div.button-screen button");
+const resetButton = document.querySelector("button.reset-button");
+const humanScoreElement = document.querySelector(".score-row .player-score");
+const deviceScoreElement = document.querySelector(".score-row .device-score");
+const dynamicText = document.querySelector(".dynamic-text");
+const maxScoreSelect = document.querySelector("#max-score-select");
+let maxScore = parseInt(
+    document.querySelector("h2 select").selectedOptions[0].value
 );
+// event listeners
+gameButtons.forEach(btn => {
+    btn.addEventListener("click", playGame)
+});
+resetButton.addEventListener("click", resetTheGame);
+maxScoreSelect.addEventListener("change", setMaxScore);
 
-// created an object for the results:
-let resultMap = {
-    [choiceMap[0]]: ["tie", "win", "lose"],  // rock
-    [choiceMap[1]]: ["lose", "tie", "win"],  // scissors
-    [choiceMap[2]]: ["win", "lose", "tie"],  // paper
-};
+const DYNAMIC_TEXT_DEFAULT = "To start the game,<br>hit the buttons below!";
+dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
+
+String.prototype.toTitleCase = function() {
+    return this.charAt(0).toUpperCase() + this.substring(1, );
+}
 
 // function that gets random computer choice:
-function getComputerChoice() {
+function getDeviceChoice() {
     const randomInteger = Math.floor((Math.random() * 3));
     switch (randomInteger) {
         case 0:
@@ -37,50 +45,99 @@ function getComputerChoice() {
 }
 
 // function that gets the result: tie/win/lose.
-function getResult(choice1, choice2) {
-    const resultArray = resultMap[choice1];  // array for the related result
-    const resultIndex = reversedChoiceMap[choice2];  // index for the result
-    const final_result = resultArray[resultIndex];  // final result fetched from the array
-    return final_result;
+function getResult(humanChoice, deviceChoice) {
+    const resultMap = {
+        "rock": ["tie", "win", "lose"],
+        "scissors": ["lose", "tie", "win"],
+        "paper": ["win", "lose", "tie"],
+    };
+    const reversedChoiceMap = Object.fromEntries(
+        Object.entries(choiceMap).map(
+            ([k, v]) => [v, parseInt(k)]
+        )
+    );
+    const roundResultArray = resultMap[humanChoice];
+    const deviceChoiceIndex = reversedChoiceMap[deviceChoice];
+    return roundResultArray[parseInt(deviceChoiceIndex)];
 }
 
 // function that gets the choice from human:
-function getHumanChoice() {
-    const userInput = prompt("Choose among rock/paper/scissors: ");
-    return userInput.toLowerCase();  // standartised result
-}
+function getHumanChoice(event) {
+    return event.target.id.toLowerCase();
 
 // this function will be invoked each round to process the result:
-function playRound(humanChoice) {
-    const computerChoice = getComputerChoice();
-    const roundResult = getResult(humanChoice, computerChoice);
+function playRound(event) {
+    const humanChoice = getHumanChoice(event);
+    const deviceChoice = getDeviceChoice();
+    const roundResult = getResult(humanChoice, deviceChoice);
     switch (roundResult) {
         case "tie":
-            console.log("Tie.")
-            break;
+            return "Tie.";
         case "win":
             humanScore++;
-            console.log(`You win! "${humanChoice}" beats "${computerChoice}".`);
-            break;
+            return `You win! "${humanChoice.toTitleCase()}" beats "${deviceChoice}".`;
         case "lose":
-            computerScore++;
-            console.log(`You lose! "${computerChoice}" beats "${humanChoice}".`);
-            break;
+            deviceScore++;
+            return `You lose! "${deviceChoice.toTitleCase()}" beats "${humanChoice}".`;
     }
 }
 
-// main function to play the game. It'll be 5 rounds by default but can be changed:
-function playGame(roundCount=5) {
-    for (let i = 0; i < roundCount; i++) {
-        const fetchedHumanInput = getHumanChoice();
-        playRound(fetchedHumanInput);
-    }
-    console.log(`Round ended. Score: ${humanScore} - ${computerScore}`);
-    if (humanScore > computerScore) {
-        console.log("You won the game!");
-    } else if (humanScore < computerScore) {
-        console.log("You lost the game.")
-    } else {
-        console.log("It's a tie.")
+// main function to play the game.
+function playGame(event) {
+    const roundResult = playRound(event);
+    dynamicText.innerHTML = roundResult;
+    dynamicText.style.color = "#ff9900";
+    humanScoreElement.textContent = humanScore;
+    deviceScoreElement.textContent = deviceScore;
+    if (humanScore === maxScore || deviceScore === maxScore) {
+        endTheGame();
     }
 }
+
+function resetTheGame() {
+    resetButton.disabled = true;
+    gameButtons.forEach(btn => {
+        btn.disabled = false;
+    });
+    humanScore = 0;
+    deviceScore = 0;
+    humanScoreElement.textContent = humanScore;
+    deviceScoreElement.textContent = deviceScore;
+    dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
+    dynamicText.setAttribute("style", '');
+}
+
+function endTheGame() {
+    resetButton.disabled = false;
+    gameButtons.forEach(btn => {
+        btn.disabled = true;
+    });
+    if (humanScore > deviceScore) {
+        dynamicText.innerHTML = "You have won the game!";
+        dynamicText.setAttribute("style",
+            "color: #90ee90; font-weight: 900;"
+        );
+    } else if (humanScore < deviceScore) {
+        dynamicText.innerHTML = "You have lost the game.";
+        dynamicText.setAttribute("style",
+            "color: #dc143c; font-weight: 900;"
+        );
+    }
+}
+
+function setMaxScore(event) {
+    maxScore = parseInt(event.target.value);
+    resetTheGame();
+}
+/*
+To-do:
+[] Put a header.
+[x] Connect the events to the buttons.
+[x] Player chooses the max num of rounds (slider 1-20)
+    * dont forget to change the <span> tag for the number
+[x] Add "Restart the game" feature.
+* When game ends:
+    [x] enable the reset button
+    [x] disable the game buttons
+[x] Fix the footer, align it.
+*/
