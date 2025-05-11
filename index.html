@@ -22,7 +22,14 @@
             <h1> 💩Rock<br>🧻Paper<br>🍴Scissors</h1>
             <h2>
               You know the rules.
-              The one who hits <span class="max-score">5</span> wins.<br>
+              The one who hits
+              <select id="max-score-select">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+              </select>
+              wins.
             </h2>
             <p class="dynamic-text"></p>
             <div class="scoreboard">
@@ -47,9 +54,9 @@
       </main>
       <footer>
         <a href="https://github.com/mertgulexe/odin-rps" target="_self" rel="noopener noreferrer">
-          <img src="./assets/GitHub_Invertocat_Dark.svg" alt="Github Logo" class="logo" height="35" width="35">
+          <img src="./assets/github-mark-white.svg" alt="Github Logo" class="logo" height="40" width="40">
         </a>
-        <p>👀 You can take a look at the source code of this page.</p>
+        <p>👀 Hey, you can see the source code by clicking the logo.</p>
       </footer>
     </body>
 </html>
