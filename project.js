@@ -7,16 +7,22 @@ let choiceMap = {
     2: "paper"
 };
 
-// event listeners and elements
+// select elements
 const gameButtons = document.querySelectorAll("div.button-screen button");
 const resetButton = document.querySelector("button.reset-button");
 const humanScoreElement = document.querySelector(".score-row .player-score");
 const deviceScoreElement = document.querySelector(".score-row .device-score");
 const dynamicText = document.querySelector(".dynamic-text");
+const maxScoreSelect = document.querySelector("#max-score-select");
+let maxScore = parseInt(
+    document.querySelector("h2 select").selectedOptions[0].value
+);
+// event listeners
 gameButtons.forEach(btn => {
     btn.addEventListener("click", playGame)
 });
 resetButton.addEventListener("click", resetTheGame);
+maxScoreSelect.addEventListener("change", setMaxScore);
 
 const DYNAMIC_TEXT_DEFAULT = "To start the game,<br>hit the buttons below!";
 dynamicText.innerHTML = DYNAMIC_TEXT_DEFAULT;
@@ -84,7 +90,7 @@ function playGame(event) {
     dynamicText.style.color = "#ff9900";
     humanScoreElement.textContent = humanScore;
     deviceScoreElement.textContent = deviceScore;
-    if (humanScore === 5 || deviceScore === 5) {
+    if (humanScore === maxScore || deviceScore === maxScore) {
         endTheGame();
     }
 }
@@ -120,6 +126,10 @@ function endTheGame() {
     }
 }
 
+function setMaxScore(event) {
+    maxScore = parseInt(event.target.value);
+    resetTheGame();
+}
 /*
 To-do:
 [] Put a header.
