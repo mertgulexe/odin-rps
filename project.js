@@ -19,7 +19,8 @@ let resultMap = {
     "paper": ["win", "lose", "tie"],
 };
 
-// select elements
+// element related variables
+const TRANSITION_CLASS_NAME = "play-button-clicked";
 const gameButtons = document.querySelectorAll("div.button-screen button");
 const resetButton = document.querySelector("button.reset-button");
 const humanScoreElement = document.querySelector(".score-row .player-score");
@@ -32,7 +33,8 @@ let maxScoreValue = parseInt(
 );
 // event listeners
 gameButtons.forEach(btn => {
-    btn.addEventListener("click", playGame)
+    btn.addEventListener("click", playTheGame);
+    btn.addEventListener("transitionend", endTransition)
 });
 resetButton.addEventListener("click", resetTheGame);
 maxScoreSelect.addEventListener("change", setMaxScore);
@@ -64,7 +66,7 @@ function getHumanChoice(event) {
 }
 
 // this function will be invoked each round to process the result:
-function playRound(event) {
+function playTheRound(event) {
     const humanChoice = getHumanChoice(event);
     const deviceChoice = getDeviceChoice();
     const roundResult = getResult(humanChoice, deviceChoice);
@@ -84,8 +86,10 @@ function playRound(event) {
 }
 
 // main function to play the game.
-function playGame(event) {
-    const roundResult = playRound(event);
+function playTheGame(event) {
+    const roundResult = playTheRound(event);
+    const btnClicked = event.target;
+    btnClicked.classList.add(TRANSITION_CLASS_NAME);
     dynamicText.innerHTML = roundResult;
     dynamicText.style.color = "#ff9900";
     humanScoreElement.textContent = humanScore;
@@ -131,6 +135,12 @@ function setMaxScore(event) {
     resetTheGame();
 }
 
+function endTransition(event) {
+    if (event.propertyName === "transform") {
+        this.classList.remove(TRANSITION_CLASS_NAME);
+        console.log(event);
+    }
+}
 
 /*
 To-do:
