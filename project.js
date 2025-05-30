@@ -138,7 +138,6 @@ function setMaxScore(event) {
 function endTransition(event) {
     if (event.propertyName === "transform") {
         this.classList.remove(TRANSITION_CLASS_NAME);
-        console.log(event);
     }
 }
 
