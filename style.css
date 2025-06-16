@@ -45,6 +45,7 @@ main {
   border-radius: 20px;
   gap:10px;
   box-shadow: 3px 3px 10px 1px rgb(235, 182, 104, 0.2);
+  user-select: none;
 }
 
 h1 {
